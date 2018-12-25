@@ -39,4 +39,12 @@ var rotate = function(nums, k) {
   return nums;
 };
 
+// Solution 2:
+// var rotate = function(nums, k) {
+//   k = k >= nums.length ? k % nums.length : k;
+//   let index = nums.length - k;
+//   nums.unshift(...nums.splice(index, k));
+//   return nums;
+// };
+
 console.log(rotate([1, 2, 3, 4, 5, 6, 7], 3));
