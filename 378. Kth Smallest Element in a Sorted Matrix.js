@@ -30,3 +30,8 @@ var kthSmallest = function(matrix, k) {
     }
     return start.sort((a,b)=>a-b)[k-1]
 };
+
+// Solution2:
+// var kthSmallest = function(matrix, k) {
+//     return matrix.reduce((arr, row) => arr.concat(row), []).sort((a,b) => a-b)[k - 1];
+// };
