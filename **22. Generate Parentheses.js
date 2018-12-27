@@ -1,17 +1,14 @@
 /**
-Given a collection of distinct integers, return all possible permutations.
+Given n pairs of parentheses, write a function to generate all combinations of well-formed parentheses.
 
-Example:
+For example, given n = 3, a solution set is:
 
-Input: [1,2,3]
-Output:
 [
-  [1,2,3],
-  [1,3,2],
-  [2,1,3],
-  [2,3,1],
-  [3,1,2],
-  [3,2,1]
+  "((()))",
+  "(()())",
+  "(())()",
+  "()(())",
+  "()()()"
 ]
  * */
 
