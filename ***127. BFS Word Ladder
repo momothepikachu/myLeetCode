@@ -1,0 +1,102 @@
+/**
+Given two words (beginWord and endWord), and a dictionary's word list, find the length of shortest transformation sequence from beginWord to endWord, such that:
+
+Only one letter can be changed at a time.
+Each transformed word must exist in the word list. Note that beginWord is not a transformed word.
+Note:
+
+Return 0 if there is no such transformation sequence.
+All words have the same length.
+All words contain only lowercase alphabetic characters.
+You may assume no duplicates in the word list.
+You may assume beginWord and endWord are non-empty and are not the same.
+Example 1:
+
+Input:
+beginWord = "hit",
+endWord = "cog",
+wordList = ["hot","dot","dog","lot","log","cog"]
+
+Output: 5
+
+Explanation: As one shortest transformation is "hit" -> "hot" -> "dot" -> "dog" -> "cog",
+return its length 5.
+Example 2:
+
+Input:
+beginWord = "hit"
+endWord = "cog"
+wordList = ["hot","dot","dog","lot","log"]
+
+Output: 0
+
+Explanation: The endWord "cog" is not in wordList, therefore no possible transformation.
+ * */
+
+/**
+ * @param {string} beginWord
+ * @param {string} endWord
+ * @param {string[]} wordList
+ * @return {number}
+ */
+
+// DFS time runout
+// function changeOne(temp, word){
+//     let count=0
+//     for(let i=0; i<temp.length; i++){
+//         if(temp[i]===word[i]) count++
+//     }
+//     return count===temp.length-1
+// }
+// var ladderLength = function(beginWord, endWord, wordList) {
+//     let res=[]
+//     let stack=[beginWord]
+//     function compare(temp, stack){
+//         if(temp===endWord){
+//             res.push(stack.slice().length)
+//         }else{
+//             for(let i of wordList){
+//                 if(stack.includes(i)) continue
+//                 if(!changeOne(temp, i)) continue      
+//                 let pre = temp
+//                 stack.push(i)
+//                 temp=i
+//                 compare(temp, stack) 
+//                 stack.pop()         
+//                 temp=pre       
+//             }
+//         }
+//     }
+//     compare(beginWord, stack)
+//     return res.length && Math.min(...res) || 0
+// };
+// console.log(ladderLength("hit","cog",["hot","dot","dog","lot","log","cog"]))
+
+// BFS Solution:
+var ladderLength = function(beginWord, endWord, wordList) {
+    let len=1
+    let queue = [beginWord]
+    const dict = new Set(wordList); //make set to save time
+    const seen = new Set(queue); //make set to save time
+    while(queue.length>0){
+        let next=[]
+        for(let word of queue){
+            if(word===endWord) return len
+            let wordArr = word.split('')
+            for(let j=0; j<wordArr.length; j++){
+                for(let k=0; k<26; k++){
+                    wordArr[j]=String.fromCharCode(97+k)
+                    let newWord=wordArr.join('')
+                    if(!seen.has(newWord) && dict.has(newWord)){
+                        next.push(newWord)
+                        seen.add(newWord)
+                    }
+                    wordArr[j]=word[j]
+                }
+            }
+        }
+        len++
+        queue=next
+    }
+    return queue.length
+};
