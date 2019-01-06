@@ -41,3 +41,23 @@ let climbStairs = function(n) {
     }
     return total;
 };
+
+// Fibonacci solution:
+let climbStairs = function(n) {
+    if(n<=2){ return n}
+    return climbStairs(n-1)+climbStairs(n-2)
+};
+// Dynamic Programming:
+let climbStairs1 = function(n) {
+    if(n<=2){ return n}
+    let oneStep=2
+    let twoStep=1
+    let newStep
+    for(let i=3; i<=n; i++){
+        newStep=oneStep+twoStep
+        twoStep=oneStep
+        oneStep=newStep
+    }
+    return newStep
+};
+console.log(climbStairs(3))
