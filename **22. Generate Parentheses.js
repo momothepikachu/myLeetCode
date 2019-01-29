@@ -47,5 +47,29 @@ var generateParenthesis = function(n) {
     return res
 };
 
-console.log(generateParenthesis(4))
+//revised version
+function generateParenthesis(n){
+    let len = n*2 
+    let dict = {'(': 0, ')': 0}
+    let result=[]
+    function bt(arr=[]){
+        if(arr.length===len){
+            result.push(arr.slice().join(''))
+            return
+        }
+        for(let i of ['(',')']){
+            dict[i]++
+            if(dict[i]<=n && dict['(']-dict[')']>=0){
+                arr.push(i)
+                bt(arr)
+                arr.pop()
+            }
+            dict[i]--
+        }
+    }
+    bt([])
+    return result
+}
+
+
 
