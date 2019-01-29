@@ -54,4 +54,22 @@ var numDecodings = function(s) {
 
 // console.log(numDecodings("1787897759966261825913315262377298132516969578441236833255596967132573482281598412163216914566534565"))
 console.log(numDecodings("226"))
-
+// Similar to LeetCode 70.climbing stairs
+var numDecodings = function(s) {
+    if(s.length===0) return 1
+    if(s.length===1){
+        return s!=0? 1 : 0
+    }
+    let oneStep = numDecodings(s[0])
+    let twoStep = 1
+    let result
+    let len = s.length
+    for(let i=2; i<=len; i++){
+        oneStep *= s[i-1]!=0? 1:0
+        twoStep *= (s.slice(i-2, i)[0]==1 || s.slice(i-2, i)[0]==2 && s.slice(i-2, i)[1]<=6)? 1:0
+        result = oneStep+twoStep
+        twoStep = oneStep
+        oneStep = result
+    }
+    return result
+};
