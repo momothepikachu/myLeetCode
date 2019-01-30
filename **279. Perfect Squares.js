@@ -40,4 +40,16 @@ var numSquares = function(n) {
     return sqr(n)
 };
 
-console.log(numSquares(2))
+//Dynamic Programming
+function perfectSqr(n) {
+  let memory = [0];
+  let min;
+  for (let i = 1; i <= n; i++) {
+    min = memory[i - 1] + 1;
+    for (let j = 1; j * j <= i; j++) {
+      min = Math.min(min, memory[i - j * j] + 1);
+    }
+    memory[i] = min;
+  }
+  return min;
+}
